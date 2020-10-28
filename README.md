@@ -1,6 +1,22 @@
 # java_training
 2015年頃　勤務中にJavaのトレーニングで作成したもの
 
+### FW
+JSP & Servlet
+
+### 開発環境
+
+##### 開発時
+- Windows7
+- Oracle jdk 8
+- MariaDB
+
+##### 動作確認
+- Linux Mint
+- openjdk 11.0.7
+- Mysql 
+ 
+
 ### 実装した機能
 #### 機能要件
 - ログイン機能

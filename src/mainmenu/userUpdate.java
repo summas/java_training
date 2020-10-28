@@ -3,7 +3,6 @@ package mainmenu;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -17,118 +16,146 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import Classes.SqlConnection;
+
 /**
  * Servlet implementation class userUpdate
  */
 @WebServlet("/userUpdate")
 public class userUpdate extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public userUpdate() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public userUpdate() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
 	@SuppressWarnings("resource")
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		
-	
+
 		String name = null;
 		String id = null;
-		
+
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-	
-		  String pid = request.getParameter("ID");
-		//  String name = request.getParameter("PASS");
-		 
-		  
-		   if(pid == null) {
 
-		   //uŠY“–‚·‚é¤•i‚Í‚ ‚è‚Ü‚¹‚ñv@‚Ì‚æ‚¤‚ÈƒRƒƒ“ƒgo—ÍH
-		   }
+		String pid = request.getParameter("ID");
+		// String name = request.getParameter("PASS");
 
-		   final Properties prop = new Properties();
-	         InputStream inStream = null; 
-		   
+		if (pid == null) {
+
+			// ï¿½uï¿½Yï¿½ï¿½ï¿½ï¿½ï¿½é¤ï¿½iï¿½Í‚ï¿½ï¿½ï¿½Ü‚ï¿½ï¿½ï¿½vï¿½@ï¿½Ì‚æ‚¤ï¿½ÈƒRï¿½ï¿½ï¿½ï¿½ï¿½gï¿½oï¿½ÍH
+		}
+
+		final Properties prop = new Properties();
+		InputStream inStream = null;
+
 		try {
-			
+
 			inStream = userUpdate.class.getClassLoader().getResourceAsStream("baseinfo.properties");
-	        prop.load(inStream);
-	        final String urlpath = prop.getProperty("urlpath");
-		
+			prop.load(inStream);
+
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
-			  conn = DriverManager.getConnection(urlpath,"sumi","sumi");
-			  conn.setAutoCommit(false);
-			  pstmt = conn.prepareStatement("UPDATE user SET PASS = ? WHERE USER_ID = ?");
-			  
-			  
-			  pstmt.setString(1, request.getParameter("PASS"));
-			  pstmt.setString(2, request.getParameter("ID"));
-		
-			  int num = pstmt.executeUpdate();
-			  
-			  conn.commit();
-			  
-			  if (num <= 0 ) {
-					ServletContext sc = getServletContext();
-					RequestDispatcher rd = sc
-							.getRequestDispatcher("/WEB-INF/JSP/register.jsp");
-					rd.forward(request, response);
-					return;
-				}
-			  
-			  pstmt = conn.prepareStatement("SELECT * FROM user WHERE USER_ID = ?")  ;
-  
-			  pstmt.setString(1, request.getParameter("ID"));
-			  
-			  rs = pstmt.executeQuery();
-			  
-		  if (rs.next()== true) {
-				  id = rs.getString("USER_ID");
-			   name = rs.getString("USER_NAME");
-			  }
+			SqlConnection db = new SqlConnection();
+			conn = db.Connect();
+			conn.setAutoCommit(false);
+			pstmt = conn.prepareStatement("UPDATE user SET PASS = ? WHERE ID = ?");
+
+			pstmt.setString(1, request.getParameter("PASS"));
+			pstmt.setString(2, request.getParameter("ID"));
+
+			int num = pstmt.executeUpdate();
+
+			conn.commit();
+
+			if (num <= 0) {
+				ServletContext sc = getServletContext();
+				RequestDispatcher rd = sc.getRequestDispatcher("/WEB-INF/JSP/register.jsp");
+				rd.forward(request, response);
+				return;
+			}
+
+			pstmt = conn.prepareStatement("SELECT * FROM user WHERE ID = ?");
+
+			pstmt.setString(1, request.getParameter("ID"));
+
+			rs = pstmt.executeQuery();
+
+			if (rs.next() == true) {
+				id = rs.getString("ID");
+				name = rs.getString("NAME");
+			}
 
 			if (id != null) {
 				request.setAttribute("id", id);
-			 	request.setAttribute("name", name);
-		
+				request.setAttribute("name", name);
+
 				ServletContext sc2 = getServletContext();
 				RequestDispatcher rd2 = sc2.getRequestDispatcher("/WEB-INF/JSP/register.jsp");
 				rd2.forward(request, response);
-	 
-			  } 
-		   else{
-			ServletContext sc = getServletContext();
-			RequestDispatcher rd = sc.getRequestDispatcher("/WEB-INF/JSP/register.jsp");
-			rd.forward(request, response);}	
-			} catch(Exception e) {
-				try {conn.rollback(); } catch (SQLException e2) {e2.printStackTrace();} 
-				  e.printStackTrace();
-				} finally {
-				  if (inStream != null){try {inStream.close();} catch (IOException e){ e.printStackTrace();}}
-				  if (rs != null ) { try {rs.close(); } catch (SQLException e) {e.printStackTrace();} }
-				  if (pstmt != null ) { try {pstmt.close(); } catch (SQLException e) {e.printStackTrace();} }
-				  if (conn != null ) { try {conn.close(); } catch (SQLException e) {e.printStackTrace();} }
+
+			} else {
+				ServletContext sc = getServletContext();
+				RequestDispatcher rd = sc.getRequestDispatcher("/WEB-INF/JSP/register.jsp");
+				rd.forward(request, response);
+			}
+		} catch (Exception e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e2) {
+				e2.printStackTrace();
+			}
+			e.printStackTrace();
+		} finally {
+			if (inStream != null) {
+				try {
+					inStream.close();
+				} catch (IOException e) {
+					e.printStackTrace();
 				}
-				
-		
-		
+			}
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+
 	}
 
 }

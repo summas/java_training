@@ -3,7 +3,6 @@ package mainmenu;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -19,6 +18,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import Classes.Encryption;
+import Classes.SqlConnection;
+import Classes.SqlManager;
 import Productdisp.ProductAdd;
 
 /**
@@ -40,20 +41,19 @@ public class register extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
-	protected void doGet(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		 HttpSession session = request.getSession(false);
-		 if(session == null){
-			 ServletContext sc = getServletContext();
-				RequestDispatcher rd = sc.getRequestDispatcher("/WEB-INF/JSP/login.jsp");
-				rd.forward(request, response);
-				return;
-			 		 }
-		
+		HttpSession session = request.getSession(false);
+		if (session == null) {
+			ServletContext sc = getServletContext();
+			RequestDispatcher rd = sc.getRequestDispatcher("/WEB-INF/JSP/login.jsp");
+			rd.forward(request, response);
+			return;
+		}
+
 		ServletContext sc2 = getServletContext();
-		RequestDispatcher rd2 = sc2
-				.getRequestDispatcher("/WEB-INF/JSP/register.jsp");
+		RequestDispatcher rd2 = sc2.getRequestDispatcher("/WEB-INF/JSP/register.jsp");
 		rd2.forward(request, response);
 
 	}
@@ -62,8 +62,8 @@ public class register extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		String chid = null;
 
@@ -79,8 +79,7 @@ public class register extends HttpServlet {
 
 		if (pass == null || id == null) {
 			ServletContext sc = getServletContext();
-			RequestDispatcher rd = sc
-					.getRequestDispatcher("/WEB-INF/JSP/register.jsp");
+			RequestDispatcher rd = sc.getRequestDispatcher("/WEB-INF/JSP/register.jsp");
 			rd.forward(request, response);
 			return;
 		}
@@ -90,19 +89,19 @@ public class register extends HttpServlet {
 		try {
 			inStream = ProductAdd.class.getClassLoader().getResourceAsStream("baseinfo.properties");
 			prop.load(inStream);
-			final String urlpath = prop.getProperty("urlpath");
 
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
 
-			conn = DriverManager.getConnection(urlpath, "sumi", "sumi");
+			SqlConnection db = new SqlConnection();
+			conn = db.Connect();
 
-			check = conn.prepareStatement("SELECT * FROM user WHERE USER_ID=?");
+			check = conn.prepareStatement("SELECT * FROM user WHERE ID=?");
 
 			check.setString(1, request.getParameter("ID"));
 			ch = check.executeQuery();
 
 			if (ch.next() == true) {
-				chid = ch.getString("USER_ID");
+				chid = ch.getString("ID");
 			}
 
 			if (chid != null) {
@@ -110,15 +109,14 @@ public class register extends HttpServlet {
 				String aaa = ("����ID�͂��łɓo�^����Ă��܂�");
 				request.setAttribute("name", aaa);
 				ServletContext sc = getServletContext();
-				RequestDispatcher rd = sc
-						.getRequestDispatcher("/WEB-INF/JSP/register.jsp");
+				RequestDispatcher rd = sc.getRequestDispatcher("/WEB-INF/JSP/register.jsp");
 				rd.forward(request, response);
 			} else {
-				
-				   //�Í���
-		           Encryption encpass = new Encryption();
-		           pass = encpass.encrypt(id, pass);
-			
+
+				// �Í���
+				Encryption encpass = new Encryption();
+				pass = encpass.encrypt(id, pass);
+
 				conn.setAutoCommit(false);
 
 				pstmt = conn.prepareStatement("INSERT INTO user VALUES(?,?,?,?)");
@@ -130,21 +128,49 @@ public class register extends HttpServlet {
 				pstmt.executeUpdate();
 
 				conn.commit();
-					request.setAttribute("id", id);
-					request.setAttribute("name", name);
-					ServletContext sc = getServletContext();
-					RequestDispatcher rd = sc.getRequestDispatcher("/WEB-INF/JSP/register.jsp");
-					rd.forward(request, response);
-					return;
+				request.setAttribute("id", id);
+				request.setAttribute("name", name);
+				ServletContext sc = getServletContext();
+				RequestDispatcher rd = sc.getRequestDispatcher("/WEB-INF/JSP/register.jsp");
+				rd.forward(request, response);
+				return;
 			}
-		} catch(Exception e) {
-			try {conn.rollback(); } catch (SQLException e2) {e2.printStackTrace();} 
-			  e.printStackTrace();
-			} finally {
-				 if (inStream != null){try {inStream.close();} catch (IOException e){ e.printStackTrace();}}
-			  if (rs != null ) { try {rs.close(); } catch (SQLException e) {e.printStackTrace();} }
-			  if (pstmt != null ) { try {pstmt.close(); } catch (SQLException e) {e.printStackTrace();} }
-			  if (conn != null ) { try {conn.close(); } catch (SQLException e) {e.printStackTrace();} }
+		} catch (Exception e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e2) {
+				e2.printStackTrace();
 			}
+			e.printStackTrace();
+		} finally {
+			if (inStream != null) {
+				try {
+					inStream.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
 	}
 }

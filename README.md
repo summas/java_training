@@ -32,6 +32,7 @@ JSP & Servlet
 - csv出力
 - Excel帳票出力
 - PDF帳票出力
+- JAVA Mail
 
 #### 非機能要件
 - セッション管理

@@ -14,46 +14,46 @@ public class SqlManager {
 		SqlAll doSqlall = new SqlAll();
 		Sql doSql = new Sql();
 		String name = null;
-		//SELECTÀs
+		//SELECTå®Ÿè¡Œ
 		public String select(Connection conn ,Product Proudct){
 			name = doSql.GetName(Proudct, conn);
 			return name;
 		}
 
-		//INSERTÀs
+		//INSERTå®Ÿè¡Œ
 		public void insert(Connection conn ,Product Proudct){
 			doSql.Insert(Proudct, conn);
 		}
 		
-		//DELETEÀs
+		//DELETEå®Ÿè¡Œ
 		public void delete(Connection conn ,Product Proudct){
 			doSql.Delete(Proudct, conn);
 		}
 		
-		//UPDATEÀs
+		//UPDATEå®Ÿè¡Œ
 		public void update(Connection conn ,Product Proudct){
 			doSql.Update(Proudct, conn);
 		}
 		
 	
-	//‘S¤•i•\¦
+	//å…¨å•†å“è¡¨ç¤º
 	public List<alldispbean> SqlDispAll(Connection conn) {
 		this.list = doSqlall.GetAllName(conn);
 				return this.list;
 	}
 	
-	//CSVƒAƒbƒvƒ[ƒhjakalta
+	//CSVã‚¢ãƒƒãƒ—ãƒ­ãƒ¼ãƒ‰jakalta
 	public void SqlInsertAll(Connection conn , ArrayList<String[]> data){
 			doSqlall.InsertAll(data, conn);
 		}
 	
-	//CSVƒAƒbƒvƒ[ƒh
+	//CSVã‚¢ãƒƒãƒ—ãƒ­ãƒ¼ãƒ‰
 	public void SqlInsertAll2( Connection conn,ArrayList<String> data){
 		
 		doSqlall.InsertAll2(data, conn);
 	}
 	
-	//—X•Öî•ñƒAƒbƒvƒ[ƒh
+	//éƒµä¾¿æƒ…å ±ã‚¢ãƒƒãƒ—ãƒ­ãƒ¼ãƒ‰
 		public void PostSqlInsertAll(Connection conn, ArrayList<String[]> data){
 			
 			doSqlall.InsertPostAll(data, conn);

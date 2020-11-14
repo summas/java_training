@@ -56,18 +56,18 @@ public class PostInfoUpload extends HttpServlet {
 		 DiskFileItemFactory factory = new DiskFileItemFactory();
 		    ServletFileUpload sfu = new ServletFileUpload(factory);
 
-	    // ƒAƒbƒvƒ[ƒhƒtƒ@ƒCƒ‹Å‘åƒTƒCƒYi-1‚Í–³ŒÀj
+	    // ã‚¢ãƒƒãƒ—ãƒ­ãƒ¼ãƒ‰ãƒ•ã‚¡ã‚¤ãƒ«æœ€å¤§ã‚µã‚¤ã‚ºï¼ˆ-1ã¯ç„¡é™ï¼‰
 		    sfu.setSizeMax(-1);  
-	    // ƒoƒbƒtƒ@ƒTƒCƒY
+	    // ãƒãƒƒãƒ•ã‚¡ã‚µã‚¤ã‚º
 		    factory.setSizeThreshold(1024);
-	     // ˆêƒtƒ@ƒCƒ‹‚Ì•Û‘¶æƒtƒHƒ‹ƒ_ 
-		    factory.setRepository(new File(path)); //ˆê“I‚É•Û‘¶‚·‚éÛ‚ÌƒfƒBƒŒƒNƒgƒŠ
-	    // ƒwƒbƒ_‚Ì•¶šƒGƒ“ƒR[ƒfƒBƒ“ƒO
+	     // ä¸€æ™‚ãƒ•ã‚¡ã‚¤ãƒ«ã®ä¿å­˜å…ˆãƒ•ã‚©ãƒ«ãƒ€ 
+		    factory.setRepository(new File(path)); //ä¸€æ™‚çš„ã«ä¿å­˜ã™ã‚‹éš›ã®ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒª
+	    // ãƒ˜ãƒƒãƒ€ã®æ–‡å­—ã‚¨ãƒ³ã‚³ãƒ¼ãƒ‡ã‚£ãƒ³ã‚°
 		    sfu.setHeaderEncoding("Windows-31J");  
 
 		    try {
-	       // ƒAƒbƒvƒ[ƒh‚³‚ê‚½ƒtƒ@ƒCƒ‹î•ñ‚ğ
-	      // FileItemƒIƒuƒWƒFƒNƒg‚ÌƒŠƒXƒg‚Æ‚µ‚Äæ“¾
+	       // ã‚¢ãƒƒãƒ—ãƒ­ãƒ¼ãƒ‰ã•ã‚ŒãŸãƒ•ã‚¡ã‚¤ãƒ«æƒ…å ±ã‚’
+	      // FileItemã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ãƒªã‚¹ãƒˆã¨ã—ã¦å–å¾—
 	    	 List<FileItem> objLst =sfu.parseRequest(request);
 	    	 Iterator<FileItem> objItr =objLst.iterator();
 
@@ -90,21 +90,21 @@ public class PostInfoUpload extends HttpServlet {
 	    			 	 System.out.println(pid.length());
 	    			 	 System.out.println(line2.length);
 	    			 	 
-	    			 	 //SQL INSERTÀs
-	    			 	  //SQL INSERTÀs
+	    			 	 //SQL INSERTå®Ÿè¡Œ
+	    			 	  //SQL INSERTå®Ÿè¡Œ
 	    			 	  SqlConnection db = new SqlConnection();
 	    		          SqlManager Sql = new SqlManager();
 	    		          Sql.PostSqlInsertAll(db.Connect(),data);
 	    					db.close(db.Connect());
 	    	         }
 
-	      // ƒŠƒXƒg‚©‚ç‡‚Éƒtƒ@ƒCƒ‹ƒf[ƒ^‚ğæ‚èo‚µA
-	      // u/WEB-INF/data/Œ³‚Ìƒtƒ@ƒCƒ‹–¼v‚ÌŒ`®‚Å
-	      // ƒAƒbƒvƒ[ƒhƒtƒ@ƒCƒ‹‚ğ•Û‘¶
+	      // ãƒªã‚¹ãƒˆã‹ã‚‰é †ã«ãƒ•ã‚¡ã‚¤ãƒ«ãƒ‡ãƒ¼ã‚¿ã‚’å–ã‚Šå‡ºã—ã€
+	      // ã€Œ/WEB-INF/data/å…ƒã®ãƒ•ã‚¡ã‚¤ãƒ«åã€ã®å½¢å¼ã§
+	      // ã‚¢ãƒƒãƒ—ãƒ­ãƒ¼ãƒ‰ãƒ•ã‚¡ã‚¤ãƒ«ã‚’ä¿å­˜
 	      while(objItr.hasNext()){
 	         FileItem objFi=(FileItem)objItr.next();
 	         if(!objFi.isFormField()){
-	           // ƒAƒbƒvƒ[ƒhƒtƒ@ƒCƒ‹‚ÌŒ³ƒtƒ@ƒCƒ‹–¼‚ğæ“¾
+	           // ã‚¢ãƒƒãƒ—ãƒ­ãƒ¼ãƒ‰ãƒ•ã‚¡ã‚¤ãƒ«ã®å…ƒãƒ•ã‚¡ã‚¤ãƒ«åã‚’å–å¾—
 	          String strNam=objFi.getName();
 	           if(strNam!=null && !strNam.equals("")){
 	             strNam=(new File(strNam)).getName();

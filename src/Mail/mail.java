@@ -61,34 +61,34 @@ public class mail extends HttpServlet {
 		   String title = request.getParameter("TITLE");
 		    String text = request.getParameter("MAIL");
 
-		    // ���[�����M
+		    // メール送信
 		    try {
 	
 		      Properties pt = System.getProperties();
 
-		      // SMTP �T�[�o�[�A�h���X
-		      pt.put("mail.smtp.host", "mail.iyoics.jp");
+		      // SMTP サーバーアドレス
+		      pt.put("mail.smtp.host", "mail.domain.jp");
 
-		      // ���[������
+		      // メール準備
 		      Session session = Session.getDefaultInstance(pt, null);
 		      MimeMessage ml = new MimeMessage(session);
 
-		      // ���M��
-		      ml.setFrom(new InternetAddress("sumi_m@iyoics.jp", "sumi", "iso-2022-jp"));
+		      // 送信元
+		      ml.setFrom(new InternetAddress("address@mail.jp", "sumi", "iso-2022-jp"));
 
-		      // ���M��
-		      ml.setRecipients(Message.RecipientType.TO, "sumi_m@iyoics.jp");
+		      // 送信先
+		      ml.setRecipients(Message.RecipientType.TO, "address@mail.jp");
 
-		      // �`��
+		      // 形式
 
-		      // �^�C�g��
+		      // タイトル
 		      ml.setSubject(title, "iso-2022-jp");
 	      
 		      Multipart mp = new MimeMultipart();
 
 		      MimeBodyPart mbp1 = new MimeBodyPart();
 		      
-		      // �{��
+		      // 本文
 		      text = text.replace('①', '1');
 		      text = text.replace('②', '2');
 		      text = text.replace('③', '3');
@@ -106,9 +106,9 @@ public class mail extends HttpServlet {
 		     
 //			       ml.setHeader("Content-Type", "text/plain");
 	     mp.addBodyPart(mbp1);
-		      // ���M��
+		      // 送信日
 
-		   // �Y�t����t�@�C���f�[�^�\�[�X���w��
+		   // 添付するファイルデータソースを指定
 		  	String filename = request.getParameter("FILENAME");
 			if(filename != ""){
 			    MimeBodyPart mbp2 = new MimeBodyPart();
@@ -119,19 +119,19 @@ public class mail extends HttpServlet {
 		   mp.addBodyPart(mbp2);
 			}
 
-		   // �}���`�p�[�g�I�u�W�F�N�g�����b�Z�[�W�ɐݒ�
+		   // マルチパートオブジェクトをメッセージに設定
 		   ml.setSentDate(new java.util.Date());
 		   ml.setContent(mp);
 
-		      // ���M
+		      // 送信
 		      Transport.send(ml);
-		      System.out.println("���M�I��");
+		      System.out.println("送信終了");
 
 		  } catch (Exception e) {
 			  e.printStackTrace();
 		    }
 		    
-		    String mailresult = "���M����܂���";
+		    String mailresult = "送信されました";
 		    request.setAttribute("result", mailresult );
 		    ServletContext sc = getServletContext();
 			RequestDispatcher rd = sc.getRequestDispatcher("/WEB-INF/JSP/Mailtest.jsp");
@@ -139,5 +139,3 @@ public class mail extends HttpServlet {
 			return;
 	}
 }
-		
-		

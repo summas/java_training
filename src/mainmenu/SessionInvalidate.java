@@ -17,45 +17,49 @@ import javax.servlet.http.HttpSession;
 @WebServlet("/SessionInvalidate")
 public class SessionInvalidate extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public SessionInvalidate() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		
+	public SessionInvalidate() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	//	Object session = null;
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		 HttpSession session=request.getSession(false);
-		 System.out.println(session);
-		 
-		  /* ÉZÉbÉVÉáÉìÇ™ë∂ç›Ç∑ÇÍÇŒîjä¸ÇµÇ‹Ç∑ÅB */
-	  if(session != null){
-		    /* ÉZÉbÉVÉáÉìsessionÇîjä¸ */
-		    session.invalidate();
-		    }
 
-		 System.out.println(session);
-		 String aaa = "";
-		   request.setAttribute("iderr", aaa);
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		// Object session = null;
+		// TODO Auto-generated method stub
+		HttpSession session = request.getSession(false);
+		System.out.println(session);
+
+		/* „Çª„ÉÉ„Ç∑„Éß„É≥„ÅåÂ≠òÂú®„Åô„Çå„Å∞Á†¥Ê£Ñ„Åó„Åæ„Åô„ÄÇ */
+		if (session != null) {
+			/* „Çª„ÉÉ„Ç∑„Éß„É≥session„ÇíÁ†¥Ê£Ñ */
+			session.invalidate();
+		}
+
+		System.out.println(session);
+		String aaa = "";
+		request.setAttribute("iderr", aaa);
 		ServletContext sc = getServletContext();
 		RequestDispatcher rd = sc.getRequestDispatcher("/WEB-INF/JSP/login.jsp");
 		rd.forward(request, response);
-		
+
 	}
 
 }

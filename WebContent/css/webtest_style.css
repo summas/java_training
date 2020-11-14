@@ -1,114 +1,131 @@
-#container{
-background-color: #008080;
- width:640px;
- margin-left:auto;
- margin-right:auto;
+#container {
+	background-color: #008080;
+	width: 640px;
+	margin-left: auto;
+	margin-right: auto;
 }
-#main{
-background-color: #F5FFFA;
- width:610px;
- margin-left:auto;
- margin-right:auto;
+
+#main {
+	background-color: #F5FFFA;
+	width: 610px;
+	margin-left: auto;
+	margin-right: auto;
 }
 
 form {
- 
-   
-    padding: 0.3em;
+	padding: 0.3em;
 }
-
-
 
 table {
 	border-collapse: collapse;
 }
+
 td {
 	border: solid 1px;
 	padding: 0.3em;
 }
+
 th {
 	border: solid 1px;
 	padding: 0.3em;
 }
 
-
-h1{ 
-   text-align:center; 
-   padding: 5px 10px 0px; 
-}
-h2 {padding: 20px 10px 0px;}
-h3 {padding: 5px 10px 0px;}
-h4 {padding: 5px 10px 0px;}
-
-#toppage{
-  font-size: 10px;
-  color: blue;
-   text-align:right; 
- padding: 0px 10px 0px 0px;
+h1 {
+	text-align: center;
+	padding: 5px 10px 0px;
 }
 
-#leftBox    {  
-12.    width: 250px;  
-13.    background: #999;  
-14.    min-height: 300px;  
-15.}  
+h2 {
+	padding: 20px 10px 0px;
+}
+
+h3 {
+	padding: 5px 10px 0px;
+}
+
+h4 {
+	padding: 5px 10px 0px;
+}
+
+#toppage {
+	font-size: 10px;
+	color: blue;
+	text-align: right;
+	padding: 0px 10px 0px 0px;
+}
+
+#leftBox { 12.
+	width: 250px; 13.
+	background: #999; 14.
+	min-height: 300px;
+	15.
+}
 
 div.sample {
-position:relative;left10;
-width:200px; height:100px;
- margin:5px; padding:10px; border:1px solid black;
- background-color:lightgray;
- } 
-
-.aqua15 { 
-font-size: 10px; 
-color: blue; 
-text-align:center;
+	position: relative; left10;
+	width: 200px;
+	height: 100px;
+	margin: 5px;
+	padding: 10px;
+	border: 1px solid black;
+	background-color: lightgray;
 }
 
-.footstyle0 { 
-font-size: 10px; 
-color: blue; 
-text-align:center;
+.aqua15 {
+	font-size: 10px;
+	color: blue;
+	text-align: center;
 }
 
-p{
-  line-height: 1.4;
-  padding: 0px 20px;
-  }
-  
-body{  
-line-height:1.4;  
-}  
+.footstyle0 {
+	font-size: 10px;
+	color: blue;
+	text-align: center;
+}
 
-a:hover { color:green; }
-a { text-align:right; }
+p {
+	line-height: 1.4;
+	padding: 0px 20px;
+}
+
+body {
+	line-height: 1.4;
+}
+
+a:hover {
+	color: green;
+}
+
+a {
+	text-align: right;
+}
 
 div#contents {
-   float:left;
-   width:600px;
-   padding: 10px 1px;
+	float: left;
+	width: 600px;
+	padding: 10px 1px;
 }
 
 div#mainContents {
-   float:left;
-   width:250px;
-   padding: 10px 5px;
+	float: left;
+	width: 250px;
+	padding: 10px 5px;
 }
 
 div#subContents {
-   float:right;
-   width:325px;
-   padding: 10px 5px;
+	float: right;
+	width: 325px;
+	padding: 10px 5px;
 }
 
 div#footer {
-   clear:both;
-   padding: 10px 10px;
-   
-imput{
- padding: 0px 10px;
+	clear: both;
+	padding: 10px 10px;
+	imput
+	{
+	padding
+	:
+	0px
+	10px;
 }
-
-   
 }

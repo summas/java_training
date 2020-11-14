@@ -55,31 +55,31 @@ public class login extends HttpServlet {
 		User user = new User(id,pass,"");
 	
 		   
-		//NULLA‹ó—“ƒ`ƒFƒbƒN ‹N“®ƒƒOƒCƒ“‰æ–Ê•\¦
+		//NULLã€ç©ºæ¬„ãƒã‚§ãƒƒã‚¯ èµ·å‹•æ™‚ãƒ­ã‚°ã‚¤ãƒ³ç”»é¢è¡¨ç¤º
 		   if(id == null|| id == ""||pass == null||pass == "") {
 			   request.setAttribute("iderr", "");
 			   request.getRequestDispatcher(url.LOGIN).forward(request, response);
 				return;
 		   }
 
-		 //“ü—Íƒ`ƒFƒbƒN(”¼Šp”š‚Ì‚İ)
+		 //å…¥åŠ›ãƒã‚§ãƒƒã‚¯(åŠè§’æ•°å­—ã®ã¿)
 		Pattern q = Pattern.compile("^[0-9]*$");
         Matcher w = q.matcher(id);
    //   System.out.println(w.find());
 
            if(w.find()==false){  
-        	   	request.setAttribute("iderr","Eˆõ”Ô†‚É‚Í4Œ…‚Ì®”‚ğ“ü—Í‚µ‚Ä‚­‚¾‚³‚¢");
+        	   	request.setAttribute("iderr","è·å“¡ç•ªå·ã«ã¯4æ¡ã®æ•´æ•°ã‚’å…¥åŠ›ã—ã¦ãã ã•ã„");
        			request.getRequestDispatcher(url.LOGIN).forward(request, response);
               	return;
            } 
            if(id.length()!=4) {
-        	   request.setAttribute("iderr","Eˆõ”Ô†‚É‚Í4Œ…‚Ì®”‚ğ“ü—Í‚µ‚Ä‚­‚¾‚³‚¢");
+        	   request.setAttribute("iderr","è·å“¡ç•ªå·ã«ã¯4æ¡ã®æ•´æ•°ã‚’å…¥åŠ›ã—ã¦ãã ã•ã„");
       		 request.getRequestDispatcher(url.LOGIN).forward(request, response);
              	return;
            }
 
-           //SQL loginÀs
-			//SQL SELECTÀs
+           //SQL loginå®Ÿè¡Œ 
+			//SQL SELECTå®Ÿè¡Œ
 		   SqlConnection db = new SqlConnection();
            SqlManager Sql = new SqlManager();
            User logUser=  Sql.SqlLogin(db.Connect(), user);
@@ -89,14 +89,14 @@ public class login extends HttpServlet {
 	  session.setAttribute("name",logUser.getId()); 
       session.setAttribute("id",id ); 
       session.setAttribute("logok","1" ); 
-      session.setAttribute("auth",logUser.getPass()); //logUser.getPass‚ÍŒ ŒÀ
+      session.setAttribute("auth",logUser.getPass()); //logUser.getPassã¯æ¨©é™
 
 		if (logUser.getName()  != null && logUser.getId()  != "" &&id != null && id != "") {
 			 request.getRequestDispatcher(url.MAIN).forward(request, response);
 	    }
    else{
-	   //ID‚ÆƒpƒXƒ[ƒh‚ğg‚Á‚ÄƒpƒXƒ[ƒh‚ÌˆÃ†‰»‚ğs‚Á‚Ä‚¢‚é‚Ì‚ÅƒpƒXƒ[ƒh‚¾‚¯‚ÅSELECT•ª‚ğ”­s‚µ‚Ä‚¢‚é‚ª–â‘è‚È‚­”»’è‚Å‚«‚éB
-	   request.setAttribute("iderr", "Eˆõ”Ô†‚©ƒpƒXƒ[ƒh‚ªŠÔˆá‚Á‚Ä‚¢‚Ü‚·B");
+	   //IDã¨ãƒ‘ã‚¹ãƒ¯ãƒ¼ãƒ‰ã‚’ä½¿ã£ã¦ãƒ‘ã‚¹ãƒ¯ãƒ¼ãƒ‰ã®æš—å·åŒ–ã‚’è¡Œã£ã¦ã„ã‚‹ã®ã§ãƒ‘ã‚¹ãƒ¯ãƒ¼ãƒ‰ã ã‘ã§SELECTåˆ†ã‚’ç™ºè¡Œã—ã¦ã„ã‚‹ãŒå•é¡Œãªãåˆ¤å®šã§ãã‚‹ã€‚
+	   request.setAttribute("iderr", "è·å“¡ç•ªå·ã‹ãƒ‘ã‚¹ãƒ¯ãƒ¼ãƒ‰ãŒé–“é•ã£ã¦ã„ã¾ã™ã€‚");
 		 request.getRequestDispatcher(url.LOGIN).forward(request, response);
 		}
     }

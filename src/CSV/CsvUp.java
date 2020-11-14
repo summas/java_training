@@ -80,7 +80,7 @@ public class CsvUp extends HttpServlet {
 	            part.write(getServletContext().getRealPath(REPOSITORY_PATH+fileName));
 	        }
 
-	        //’Ç‰ÁCSV
+	        //è¿½åŠ CSV
 	        FileInputStream fis = new FileInputStream(path);
 
 			InputStreamReader csv = new InputStreamReader(fis,"UTF-8");
@@ -92,10 +92,10 @@ public class CsvUp extends HttpServlet {
 	
 			String line;
 		
-			// ÅIs‚Ü‚Å“Ç‚İ‚Ş
+			// æœ€çµ‚è¡Œã¾ã§èª­ã¿è¾¼ã‚€
 			while ((line = br.readLine()) != null) {
 			
-			  // 1s‚ğƒf[ƒ^‚Ì—v‘f‚É•ªŠ„
+			  // 1è¡Œã‚’ãƒ‡ãƒ¼ã‚¿ã®è¦ç´ ã«åˆ†å‰²
 			  StringTokenizer st = new StringTokenizer(line, ",");
 
 			  String id = st.nextToken();
@@ -108,14 +108,14 @@ public class CsvUp extends HttpServlet {
 			  list.add(new alldispbean(id,name));
 			}
 			
-			//SQL@INSERTÀs
-			  //SQL INSERTÀs
+			//SQLã€€INSERTå®Ÿè¡Œ
+			  //SQL INSERTå®Ÿè¡Œ
 		 	  SqlConnection db = new SqlConnection();
 	          SqlManager Sql = new SqlManager();
 	          Sql.SqlInsertAll2( db.Connect(), data);
 				db.close(db.Connect());
 		 	  
-			String title = "CSVæ‚İ";
+			String title = "CSVå–è¾¼ã¿";
 		   	request.setAttribute("title", title);
 
 			  request.setAttribute("AllDisp", list);

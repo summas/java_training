@@ -16,81 +16,77 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/escapetest")
 public class escapetest extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public escapetest() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public escapetest() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		ServletContext sc = getServletContext();
-		RequestDispatcher rd = sc
-				.getRequestDispatcher("/WEB-INF/JSP/escapetest.jsp");
+		RequestDispatcher rd = sc.getRequestDispatcher("/WEB-INF/JSP/escapetest.jsp");
 		rd.forward(request, response);
 		return;
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-	
-		  String escape = request.getParameter("escape");
-	     if(escape==null){
-		  ServletContext sc = getServletContext();
-				RequestDispatcher rd = sc
-						.getRequestDispatcher("/WEB-INF/JSP/escapetest.jsp");
-				rd.forward(request, response);
-				return;
-		 }
-		  
-		   
-		 /** HTMLƒGƒ“ƒR[ƒh‚ª•K—v‚È•¶š **/
-		  char[] htmlEncChar = {'&', '"', '<', '>'};
-		  /** HTMLƒGƒ“ƒR[ƒh‚µ‚½•¶š—ñ **/
-		  String[] htmlEncStr = {"&amp;", "&quot;", "&lt;", "&gt;"};
 
-		  /**
-		  * HTMLƒGƒ“ƒR[ƒhˆ—B
-		  *   &,",<,>‚Ì’uŠ·
-		  **/
-		 
-		  // HTMLƒGƒ“ƒR[ƒhˆ—
-		    StringBuffer strOut = new StringBuffer(escape);
-		    // ƒGƒ“ƒR[ƒh‚ª•K—v‚È•¶š‚ğ‡”Ô‚Éˆ—
-		    for (int i = 0; i < htmlEncChar.length; i++) {
-		      // ƒGƒ“ƒR[ƒh‚ª•K—v‚È•¶š‚ÌŒŸõ
-		      int idx = strOut.toString().indexOf(htmlEncChar[i]);
-
-		      while (idx != -1) {
-		        // ƒGƒ“ƒR[ƒh‚ª•K—v‚È•¶š‚Ì’uŠ·
-		        strOut.setCharAt(idx, htmlEncStr[i].charAt(0));
-		        strOut.insert(idx + 1, htmlEncStr[i].substring(1));
-
-		        // Ÿ‚ÌƒGƒ“ƒR[ƒh‚ª•K—v‚È•¶š‚ÌŒŸõ
-		        idx = idx + htmlEncStr[i].length();
-		        idx = strOut.toString().indexOf(htmlEncChar[i], idx);
-		      }
-		    }
-		    request.setAttribute("strOut", strOut.toString());
-			
-			ServletContext sc2 = getServletContext();
-			RequestDispatcher rd2 = sc2.getRequestDispatcher("/WEB-INF/JSP/escapetest.jsp");
-			rd2.forward(request, response);
+		String escape = request.getParameter("escape");
+		if (escape == null) {
+			ServletContext sc = getServletContext();
+			RequestDispatcher rd = sc.getRequestDispatcher("/WEB-INF/JSP/escapetest.jsp");
+			rd.forward(request, response);
 			return;
-		//    return(strOut.toString());
-		  }
+		}
 
-		
-		
-	
+		/** HTMLã‚¨ãƒ³ã‚³ãƒ¼ãƒ‰ãŒå¿…è¦ãªæ–‡å­— **/
+		char[] htmlEncChar = { '&', '"', '<', '>' };
+		/** HTMLã‚¨ãƒ³ã‚³ãƒ¼ãƒ‰ã—ãŸæ–‡å­—åˆ— **/
+		String[] htmlEncStr = { "&amp;", "&quot;", "&lt;", "&gt;" };
+
+		/**
+		 * HTMLã‚¨ãƒ³ã‚³ãƒ¼ãƒ‰å‡¦ç†ã€‚ &,",<,>ã®ç½®æ›
+		 **/
+
+		// HTMLã‚¨ãƒ³ã‚³ãƒ¼ãƒ‰å‡¦ç†
+		StringBuffer strOut = new StringBuffer(escape);
+		// ã‚¨ãƒ³ã‚³ãƒ¼ãƒ‰ãŒå¿…è¦ãªæ–‡å­—ã‚’é †ç•ªã«å‡¦ç†
+		for (int i = 0; i < htmlEncChar.length; i++) {
+			// ã‚¨ãƒ³ã‚³ãƒ¼ãƒ‰ãŒå¿…è¦ãªæ–‡å­—ã®æ¤œç´¢
+			int idx = strOut.toString().indexOf(htmlEncChar[i]);
+
+			while (idx != -1) {
+				// ã‚¨ãƒ³ã‚³ãƒ¼ãƒ‰ãŒå¿…è¦ãªæ–‡å­—ã®ç½®æ›
+				strOut.setCharAt(idx, htmlEncStr[i].charAt(0));
+				strOut.insert(idx + 1, htmlEncStr[i].substring(1));
+
+				// æ¬¡ã®ã‚¨ãƒ³ã‚³ãƒ¼ãƒ‰ãŒå¿…è¦ãªæ–‡å­—ã®æ¤œç´¢
+				idx = idx + htmlEncStr[i].length();
+				idx = strOut.toString().indexOf(htmlEncChar[i], idx);
+			}
+		}
+		request.setAttribute("strOut", strOut.toString());
+
+		ServletContext sc2 = getServletContext();
+		RequestDispatcher rd2 = sc2.getRequestDispatcher("/WEB-INF/JSP/escapetest.jsp");
+		rd2.forward(request, response);
+		return;
+		// return(strOut.toString());
+	}
 
 }

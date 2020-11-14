@@ -58,9 +58,9 @@ public class CsvOut extends HttpServlet {
 		List<alldispbean> list = new ArrayList<alldispbean>();	
 
 		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(filenameCsv)));
-		bw.write("¤•iID,¤•i–¼");bw.newLine();
+		bw.write("å•†å“ID,å•†å“å");bw.newLine();
 
-		  //SQL Select‚Å ‘S¤•iƒŠƒXƒgæ“¾
+		  //SQL Selectã§ å…¨å•†å“ãƒªã‚¹ãƒˆå–å¾—
 	      SqlConnection db = new SqlConnection();
 	      SqlManager Sql = new SqlManager();
 	      list =  Sql.SqlDispAll(db.Connect());
@@ -77,7 +77,7 @@ public class CsvOut extends HttpServlet {
 		BufferedInputStream in = null;
 		BufferedOutputStream out = null;
 		try {
-			//HTTPƒwƒbƒ_‚Ìo—Í
+			//HTTPãƒ˜ãƒƒãƒ€ã®å‡ºåŠ›
 			response.setContentType("application/octet-stream");
 			response.setHeader("Content-disposition", "attachment; filename=\"" + URLEncoder.encode(file.getName(),"UTF-8"));
 			response.setContentLength((int)file.length());
@@ -93,15 +93,15 @@ public class CsvOut extends HttpServlet {
 			               out.write(buf,0,len);
 			           }
 			       } catch (SocketException e) {
-			           //œƒ_ƒEƒ“ƒ[ƒhˆ—’†‚Éƒ_ƒEƒ“ƒ[ƒhƒ_ƒCƒAƒƒO‚ÌuƒLƒƒƒ“ƒZƒ‹v‚ª
-			           //ƒNƒŠƒbƒN‚³‚ê‚½ê‡‚Ì—áŠOB
-			           //œ‚½‚¾‚µAƒ_ƒEƒ“ƒ[ƒhƒ_ƒCƒAƒƒO‚ª•\¦‚³‚ê‚Ä‚¢‚éƒoƒbƒNƒOƒ‰ƒEƒ“ƒh‚Å
-			           //ƒuƒ‰ƒEƒU‚Ö‚Ìƒ_ƒEƒ“ƒ[ƒh‚ªs‚í‚ê‚Ä‚¢‚é‚±‚Æ‚É—¯ˆÓ‚·‚é‚±‚ÆB
-			           //œ‚Â‚Ü‚è¬‚³‚¢ƒtƒ@ƒCƒ‹‚Å‚ÍAƒ_ƒCƒAƒƒO‚ª•\¦‚³‚ê‚é‚É‚ÍAƒ_ƒEƒ“ƒ[ƒh
-			           //ˆ—‚ÍŠ®—¹‚µAƒT[ƒuƒŒƒbƒg‚ÍI—¹‚µ‚Ä‚µ‚Ü‚Á‚Ä‚¨‚èASocketException‚Ì
-			           //‚à”­¶‚µ‚È‚¢‚Æ‚¢‚¤‚±‚Æ‚Å‚·B
+			           //â—ãƒ€ã‚¦ãƒ³ãƒ­ãƒ¼ãƒ‰å‡¦ç†ä¸­ã«ãƒ€ã‚¦ãƒ³ãƒ­ãƒ¼ãƒ‰ãƒ€ã‚¤ã‚¢ãƒ­ã‚°ã®ã€Œã‚­ãƒ£ãƒ³ã‚»ãƒ«ã€ãŒ
+			           //ã‚¯ãƒªãƒƒã‚¯ã•ã‚ŒãŸå ´åˆã®ä¾‹å¤–ã€‚
+			           //â—ãŸã ã—ã€ãƒ€ã‚¦ãƒ³ãƒ­ãƒ¼ãƒ‰ãƒ€ã‚¤ã‚¢ãƒ­ã‚°ãŒè¡¨ç¤ºã•ã‚Œã¦ã„ã‚‹ãƒãƒƒã‚¯ã‚°ãƒ©ã‚¦ãƒ³ãƒ‰ã§
+			           //ãƒ–ãƒ©ã‚¦ã‚¶ã¸ã®ãƒ€ã‚¦ãƒ³ãƒ­ãƒ¼ãƒ‰ãŒè¡Œã‚ã‚Œã¦ã„ã‚‹ã“ã¨ã«ç•™æ„ã™ã‚‹ã“ã¨ã€‚
+			           //â—ã¤ã¾ã‚Šå°ã•ã„ãƒ•ã‚¡ã‚¤ãƒ«ã§ã¯ã€ãƒ€ã‚¤ã‚¢ãƒ­ã‚°ãŒè¡¨ç¤ºã•ã‚Œã‚‹æ™‚ã«ã¯ã€ãƒ€ã‚¦ãƒ³ãƒ­ãƒ¼ãƒ‰
+			           //å‡¦ç†ã¯å®Œäº†ã—ã€ã‚µãƒ¼ãƒ–ãƒ¬ãƒƒãƒˆã¯çµ‚äº†ã—ã¦ã—ã¾ã£ã¦ãŠã‚Šã€SocketExceptionã®
+			           //ã‚‚ç™ºç”Ÿã—ãªã„ã¨ã„ã†ã“ã¨ã§ã™ã€‚
 			       } catch (Exception e) {
-			           //ƒtƒ@ƒCƒ‹ƒ_ƒEƒ“ƒ[ƒh—p‚ÌHTTPƒwƒbƒ_‚ğƒŠƒZƒbƒg‚µ‚Ü‚·B
+			           //ãƒ•ã‚¡ã‚¤ãƒ«ãƒ€ã‚¦ãƒ³ãƒ­ãƒ¼ãƒ‰ç”¨ã®HTTPãƒ˜ãƒƒãƒ€ã‚’ãƒªã‚»ãƒƒãƒˆã—ã¾ã™ã€‚
 			           response.reset();
 			           response.sendError(HttpURLConnection.HTTP_INTERNAL_ERROR , e.toString());
 			       } finally {

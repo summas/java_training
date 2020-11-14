@@ -58,13 +58,13 @@ public class CustomerRegister extends HttpServlet {
 	
 		  String postNo = request.getParameter("postNo");
 		 
-		//“ü—Íƒ`ƒFƒbƒN(”¼Šp”Žš‚Ì‚Ý)
+		//å…¥åŠ›ãƒã‚§ãƒƒã‚¯(åŠè§’æ•°å­—ã®ã¿)
 			Pattern q = Pattern.compile("^[0-9]*$");
 	        Matcher w = q.matcher(postNo);
 	   //   System.out.println(w.find());
 	        
 	           if(w.find()==false){       	   
-	        	   System.out.println("ID‚É‚Í®”‚ð“ü—Í‚µ‚Ä‚­‚¾‚³‚¢");
+	        	   System.out.println("IDã«ã¯æ•´æ•°ã‚’å…¥åŠ›ã—ã¦ãã ã•ã„");
 	        	   String aaa = ("");
 					request.setAttribute("name", aaa);
 	        	   ServletContext sc = getServletContext();
@@ -86,7 +86,7 @@ public class CustomerRegister extends HttpServlet {
 			  conn = DriverManager.getConnection(urlpath,"sumi","sumi");
 			  conn.setAutoCommit(false);
 
-			  pstmt = conn.prepareStatement("INSERT INTO ZŠ  VALUES(?,?,?,?)");
+			  pstmt = conn.prepareStatement("INSERT INTO ä½æ‰€  VALUES(?,?,?,?)");
 			  
 			  pstmt.setString(1, request.getParameter("postNo"));
 			  pstmt.setString(2, request.getParameter("ken"));

@@ -106,14 +106,14 @@ public class register extends HttpServlet {
 
 			if (chid != null) {
 				request.setAttribute("id", chid);
-				String aaa = ("����ID�͂��łɓo�^����Ă��܂�");
+				String aaa = ("このIDはすでに登録されています");
 				request.setAttribute("name", aaa);
 				ServletContext sc = getServletContext();
 				RequestDispatcher rd = sc.getRequestDispatcher("/WEB-INF/JSP/register.jsp");
 				rd.forward(request, response);
 			} else {
 
-				// �Í���
+				// 暗号化
 				Encryption encpass = new Encryption();
 				pass = encpass.encrypt(id, pass);
 

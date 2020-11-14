@@ -1,4 +1,4 @@
-<%@ page contentType="text/html;charset=UTF-8" %>
+<%@ page contentType="text/html;charset=UTF-8"%>
 <%
  response.setHeader("Pragma","no-cache");
  response.setHeader("Cache-Control","no-cache");
@@ -7,32 +7,38 @@
 
  %>
 
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html lang="ja">
- <head>
+<head>
 <meta charset="UTF-8">
- <title>メインメニュー</title>
+<title>メインメニュー</title>
 <link rel="stylesheet" href="css/webtest_style.css" type="text/css">
- </head>
- <body>
-<div id="container">
-<div id="main">
-<!-- %= session.getId() %>
+</head>
+<body>
+	<div id="container">
+		<div id="main">
+			<!-- %= session.getId() %>
 %= session.getMaxInactiveInterval() %> -->
 
 
-<h1><hr width ="95%">メインメニュー<hr width ="95%"> </h1>
-<div align="center">
+			<h1>
+				<hr width="95%">
+				メインメニュー
+				<hr width="95%">
+			</h1>
+			<div align="center">
 
- こんにちは<%=session.getAttribute("name")%>さん。
-ID:<%= session.getAttribute( "id" )%>  <br><br>
+				こんにちは<%=session.getAttribute("name")%>さん。 ID:<%= session.getAttribute( "id" )%>
+				<br>
+				<br>
 
 
-<FORM action='move' method=post>
-<INPUT type='submit' name= button  value='商品マスタ'><br><br>
-</FORM>
+				<FORM action='move' method=post>
+					<INPUT type='submit' name=button value='商品マスタ'><br>
+					<br>
+				</FORM>
 
-<%
+				<%
 
 Object ob = session.getAttribute( "auth" );
 String objStr = ob.toString();
@@ -59,17 +65,19 @@ out.println("</FORM>");
 %>
 
 
-<FORM action='SessionInvalidate'  method="post" >
-<INPUT type='submit' name='button' value='ログアウト'><br><br>
-</FORM>
+				<FORM action='SessionInvalidate' method="post">
+					<INPUT type='submit' name='button' value='ログアウト'><br>
+					<br>
+				</FORM>
 
-</div>
- <div id="footer">
-<hr align="center"; width ="95%" >
-<div class="aqua15">Copyright © 2011 St. MASAAKI S INC. All rights reserved</div>
-<hr align="center"; width ="95%" >
-</div>
-</div>
-</div>
- </body>
- </html>
+			</div>
+			<div id="footer">
+				<hr align="center" ; width="95%">
+				<div class="aqua15">Copyright © 2011 St. MASAAKI S INC. All
+					rights reserved</div>
+				<hr align="center" ; width="95%">
+			</div>
+		</div>
+	</div>
+</body>
+</html>
